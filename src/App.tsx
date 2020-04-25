@@ -1,5 +1,5 @@
-import React, { useState, useEffect, ChangeEvent } from "react";
-import { TextField, Button } from "@material-ui/core";
+import React, { useState, useEffect } from "react";
+import { Button } from "@material-ui/core";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 
@@ -59,9 +59,9 @@ function App() {
     setTodos(newState);
   };
 
-  const updateIndex = (indexToUpdate: number, newName: string) => {
+  const updateIndex = (indexToUpdate: number, newTodo: Todo) => {
     let newTodos = [...todos];
-    newTodos[indexToUpdate] = { ...newTodos[indexToUpdate], name: newName };
+    newTodos[indexToUpdate] = newTodo;
     setTodos(newTodos);
   };
 
@@ -71,12 +71,12 @@ function App() {
         <p>hello</p>
         <div className="todo_new">
           <TodoForm setTodo={setTodo} todo={todo} />
-          <Button onClick={handleSave}>Save</Button>
+          <Button onClick={handleSave}>Create</Button>
         </div>
         {todos.map((task, i) => {
           return (
             <Todo
-              name={task.name}
+              todo={task}
               key={i}
               onDelete={() => deleteIndex(i)}
               onUpdate={(v) => updateIndex(i, v)}

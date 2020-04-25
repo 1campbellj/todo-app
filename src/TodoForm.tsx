@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { TextField } from "@material-ui/core";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
@@ -15,14 +15,12 @@ type Props = {
 };
 
 const TodoForm = ({ setTodo, todo }: Props) => {
-  const [newTodo, setNewTodo] = useState<Todo>(todo);
-
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTodo({ ...todo, name: e.target.value });
   };
 
   const handleDueDateChange = (date: MaterialUiPickersDate) => {
-    setNewTodo({ ...newTodo, dueDate: date });
+    setTodo({ ...todo, dueDate: date });
   };
 
   return (

@@ -1,50 +1,45 @@
 import React, { useState } from "react";
-import { TextField } from "@material-ui/core";
-import { Delete, Edit, Save } from "@material-ui/icons";
+import { Button } from "@material-ui/core";
+import { Delete, Edit } from "@material-ui/icons";
+import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
+import { format } from "date-fns";
+import TodoForm from "./TodoForm";
 
 import "./todo.scss";
+type TodoType = {
+  name: string;
+  dueDate: MaterialUiPickersDate | null;
+  completionDate: MaterialUiPickersDate | null;
+};
 
 const Todo = ({
-  name,
+  todo,
   onDelete,
   onUpdate,
 }: {
-  name: string;
+  todo: TodoType;
   onDelete: () => void;
-  onUpdate: (name: string) => void;
+  onUpdate: (v: any) => void;
 }) => {
   const [editMode, setEditMode] = useState(false);
-  const [editName, setEditName] = useState(name);
+  const [editedTodo, setEditedTodo] = useState(todo);
 
   const handleUpdate = () => {
-    onUpdate(editName);
+    onUpdate(editedTodo);
     setEditMode(false);
-  };
-
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEditName(e.target.value);
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.keyCode === 13) {
-      handleUpdate();
-    }
   };
 
   return (
     <div className="todo">
       {editMode ? (
-        <div>
-          <TextField
-            value={editName}
-            onChange={handleNameChange}
-            onKeyDown={handleKeyDown}
-          />
-          <Save className="todo_action" onClick={handleUpdate} />
+        <div className="todo_edit">
+          <TodoForm setTodo={setEditedTodo} todo={editedTodo} />
+          <Button onClick={handleUpdate}>Save</Button>
         </div>
       ) : (
         <>
-          <p>{name}</p>
+          <p>{todo.name}</p>|
+          <p>Due: {format(new Date(todo.dueDate as Date), "MM/dd/yyyy")}</p>
           <Delete className="todo_action" onClick={onDelete} />
           <Edit className="todo_action" onClick={() => setEditMode(true)} />
         </>
