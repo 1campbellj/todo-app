@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import { Button } from "@material-ui/core";
 import { Delete, Edit } from "@material-ui/icons";
-import Checkbox, { CheckboxProps } from "@material-ui/core/Checkbox";
+import Checkbox from "@material-ui/core/Checkbox";
 
 import TodoForm from "./TodoForm";
 import { TodoType } from "./common";
