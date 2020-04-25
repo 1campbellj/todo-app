@@ -1,6 +1,6 @@
 .todo {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
 
   &_action {
     &:hover {
@@ -11,11 +11,54 @@
   &_new,
   &_edit {
     display: flex;
-    align-items: baseline;
+    align-items: flex-end;
   }
 
   &_form {
     display: flex;
-    align-items: baseline;
+    align-items: flex-end;
+  }
+
+  .MuiSvgIcon-root.todo_action {
+    margin-top: 10px;
+  }
+
+  .MuiInputBase-root.Mui-disabled,
+  .MuiIconButton-root.Mui-disabled,
+  .MuiFormLabel-root.Mui-disabled {
+    color: black;
+  }
+
+  .MuiIconButton-root.Mui-disabled {
+    display: none;
+  }
+}
+
+.todo--complete {
+  .MuiInputBase-root.Mui-disabled,
+  .MuiIconButton-root.Mui-disabled,
+  .MuiFormLabel-root.Mui-disabled {
+    color: #455a64;
+  }
+}
+
+.todo_action-container {
+  width: 80px;
+  display: flex;
+  margin-left: 10px;
+
+  &--left {
+    width: 30px;
+    margin-left: 0;
+    margin-right: 10px;
+    .MuiButtonBase-root.MuiIconButton-root {
+      padding-bottom: 5px;
+    }
+  }
+}
+
+.todo_action {
+  & + & {
+    margin-left: 10px;
   }
 }

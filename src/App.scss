@@ -6,7 +6,6 @@
   flex-direction: column;
   align-items: center;
   font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-logo {
@@ -37,4 +36,17 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.todo,
+.todo_new,
+.todo_edit {
+  width: 50vw;
+}
+
+.todo_form {
+  flex: 1;
+}
+.todo_name-input {
+  flex: 1;
 }

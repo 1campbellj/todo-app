@@ -1,45 +1,84 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { TextField } from "@material-ui/core";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date";
 
-type Todo = {
-  name: string;
-  dueDate: MaterialUiPickersDate | null;
-  completionDate: MaterialUiPickersDate | null;
-};
+import { TodoType } from "./common";
 
 type Props = {
-  setTodo: (t: Todo) => void;
-  todo: Todo;
+  setTodo?: (t: TodoType) => void;
+  todo: TodoType;
+  disabled?: boolean;
+  onKeyPress?: (e: React.KeyboardEvent) => void;
 };
 
-const TodoForm = ({ setTodo, todo }: Props) => {
+const TodoForm = ({ setTodo, todo, disabled, onKeyPress }: Props) => {
+  const nameRef = useRef<HTMLInputElement>();
+
+  useEffect(function autoFocusNameInput() {
+    if (nameRef && nameRef.current) {
+      nameRef.current.focus();
+    }
+  }, []);
+
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTodo({ ...todo, name: e.target.value });
+    if (setTodo) {
+      setTodo({ ...todo, name: e.target.value });
+    }
   };
 
   const handleDueDateChange = (date: MaterialUiPickersDate) => {
-    setTodo({ ...todo, dueDate: date });
+    if (setTodo) {
+      setTodo({ ...todo, dueDate: date });
+    }
   };
 
   return (
     <div className="todo_form">
-      <TextField value={todo.name} onChange={handleNameChange} />
-      <KeyboardDatePicker
-        disableToolbar
-        variant="inline"
-        format="MM/dd/yyyy"
-        margin="normal"
-        id="date-picker-inline"
-        label="Due Date"
-        value={todo.dueDate}
-        onChange={handleDueDateChange}
-        KeyboardButtonProps={{
-          "aria-label": "change date",
+      <TextField
+        inputRef={nameRef}
+        inputProps={{
+          maxLength: 75,
         }}
-        style={{ width: "140px" }}
+        className="todo_name-input"
+        disabled={disabled}
+        value={todo.name}
+        onChange={handleNameChange}
+        onKeyPress={onKeyPress}
       />
+      {todo.completionDate ? (
+        <KeyboardDatePicker
+          disabled={disabled}
+          disableToolbar
+          variant="inline"
+          format="MM/dd/yyyy"
+          margin="normal"
+          id="date-picker-inline"
+          label="Completion Date"
+          value={todo.completionDate}
+          onChange={handleDueDateChange}
+          KeyboardButtonProps={{
+            "aria-label": "change date",
+          }}
+          style={{ width: "140px", marginBottom: 0 }}
+        />
+      ) : (
+        <KeyboardDatePicker
+          disabled={disabled}
+          disableToolbar
+          variant="inline"
+          format="MM/dd/yyyy"
+          margin="normal"
+          id="date-picker-inline"
+          label="Due Date"
+          value={todo.dueDate}
+          onChange={handleDueDateChange}
+          KeyboardButtonProps={{
+            "aria-label": "change date",
+          }}
+          style={{ width: "140px", marginBottom: 0 }}
+        />
+      )}
     </div>
   );
 };
