@@ -2,6 +2,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ## Todo App Intro
 
+Visit a live version of the app [hosted on Heroku](https://ome-todo-app.herokuapp.com)
+
 This Todo app was built on React, starting with `create-react-app` with a Typescript flag for easy Typescript setup. The advantages of this method are very fast spin-up time, and easy out of the box deployment to Heroku with a few CLI commands.
 
 Todos can be created with a due date, and later marked complete. The completion date will be stored and displayed upon completion.
