@@ -25,23 +25,6 @@ const Todo = ({
     setEditMode(false);
   }, [onUpdate, setEditMode, editedTodo]);
 
-  // const handleCompletion = () => {
-  //   setEditedTodo({ ...editedTodo, completionDate: new Date() });
-  // };
-
-  // propagate completion date change as needed
-  // useEffect(
-  //   function watchCompletionDate() {
-  //     if (
-  //       editedTodo.completionDate &&
-  //       todo.completionDate !== editedTodo.completionDate
-  //     ) {
-  //       handleUpdate();
-  //     }
-  //   },
-  //   [editedTodo.completionDate, todo, handleUpdate]
-  // );
-
   const handleCheckChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.checked) {
       onUpdate({ ...todo, completionDate: new Date() });
@@ -73,7 +56,9 @@ const Todo = ({
             todo={editedTodo}
             onKeyPress={handleKeyPress}
           />
-          <Button onClick={handleUpdate}>Save</Button>
+          <Button onClick={handleUpdate} data-testid="save-button">
+            Save
+          </Button>
         </div>
       ) : (
         <>
@@ -82,13 +67,25 @@ const Todo = ({
               onChange={handleCheckChange}
               checked={todo.completionDate !== null}
               style={{ color: "#2980b9" }}
+              inputProps={{
+                //@ts-ignore
+                "data-testid": "complete-checkbox",
+              }}
             />
           </div>
           <TodoForm disabled todo={todo} />
           <div className="todo_action-container">
-            <Delete className="todo_action" onClick={onDelete} />
+            <Delete
+              className="todo_action"
+              onClick={onDelete}
+              data-testid="delete-button"
+            />
             {!todo.completionDate && (
-              <Edit className="todo_action" onClick={() => setEditMode(true)} />
+              <Edit
+                className="todo_action"
+                onClick={() => setEditMode(true)}
+                data-testid="edit-button"
+              />
             )}
           </div>
         </>

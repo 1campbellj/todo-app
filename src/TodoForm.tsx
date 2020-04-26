@@ -39,6 +39,7 @@ const TodoForm = ({ setTodo, todo, disabled, onKeyPress }: Props) => {
         inputRef={nameRef}
         inputProps={{
           maxLength: 75,
+          "data-testid": "name-input",
         }}
         className="todo_name-input"
         disabled={disabled}

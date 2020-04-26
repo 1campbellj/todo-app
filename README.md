@@ -35,3 +35,5 @@ The React Material UI library is heavily used for icons, input, and buttons.
 TypeScript helped a lot in development. Typescript typings on `props` is used in place of the `PropTypes` library.
 
 SCSS is used for styling with a slightly modified BEM syntax. In some cases minor styling is passed in directly to MUI components.
+
+react-testing-library used for tests. Broad CRUD functionality that touches all components included in `App.test.tsx`

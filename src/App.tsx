@@ -14,7 +14,7 @@ const initialState = (): TodoType[] => {
   if (todos) {
     return JSON.parse(todos);
   } else {
-    return [blankTodo()];
+    return [];
   }
 };
 
@@ -60,7 +60,6 @@ function App() {
   };
 
   const updateIndex = (indexToUpdate: number, newTodo: TodoType) => {
-    console.log("update index", newTodo);
     let newTodos = [...todos];
     newTodos[indexToUpdate] = newTodo;
     setTodos(newTodos);
